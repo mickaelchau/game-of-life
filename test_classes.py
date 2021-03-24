@@ -31,8 +31,8 @@ class TestBoardInitialization:
         M = Board(1, init=5)
         assert (M.size == 1 and countOnes(M.matrix, 1) == 1)
 
-class TestBoardAliveArroundCells:
-    def testiNegativeCoordinates(self):
+class TestAliveArroundCells:
+    def testNegativeCoordinates(self):
         M = Board(1, init=5)
         with pytest.raises(ValueError):
             aliveAroundCells(M.matrix, M.size, -1, 2)
@@ -66,3 +66,49 @@ class TestBoardAliveArroundCells:
         M.matrix[1, 1] = 1
         M.matrix[1, 2] = 1
         assert(aliveAroundCells(M.matrix, M.size, 1, 1) == 2)
+
+class TestAliveOrNot:
+
+    def testNoAlive(self):
+        M = Board(3)
+        assert(AliveOrNot(M.matrix, M.size, 1, 1) == 0)
+    
+    def test3AliveDeadInMiddle(self):
+        M = Board(3)
+        M.matrix[0, 1] = 1
+        M.matrix[1, 0] = 1
+        M.matrix[1, 2] = 1
+        assert(AliveOrNot(M.matrix, M.size, 1, 1) == 1)
+
+    def test3AliveAliveInMiddle(self):
+        M = Board(3)
+        M.matrix[0, 1] = 1
+        M.matrix[1, 0] = 1
+        M.matrix[1, 2] = 1
+        M.matrix[1, 1] = 1
+        assert(AliveOrNot(M.matrix, M.size, 1, 1) == 1)
+
+    def test2AliveAndAlive(self):
+        M = Board(3)
+        M.matrix[0, 0] = 1
+        M.matrix[0, 1] = 1
+        M.matrix[1, 0] = 1
+        assert(AliveOrNot(M.matrix, M.size, 0, 0) == 1)
+
+    def test4AliveAndAlive(self):
+        M = Board(3)
+        M.matrix[0, 1] = 1
+        M.matrix[1, 1] = 1
+        M.matrix[1, 2] = 1
+        M.matrix[2, 1] = 1
+        M.matrix[2, 0] = 1
+        M.matrix[0, 2] = 1
+        assert(AliveOrNot(M.matrix, M.size, 1, 1) == 0)
+
+    def test1AliveAndAlive(self):
+        M = Board(3)
+        M.matrix[0, 0] = 1
+        M.matrix[0, 1] = 1
+        assert(AliveOrNot(M.matrix, M.size, 0, 0) == 0)
+
+

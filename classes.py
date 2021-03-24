@@ -28,6 +28,15 @@ def aliveAroundCells(mat, size, x, y):
     count -= mat[x, y] #Do not want the middle one
     return count
 
+def AliveOrNot(mat, size, x, y):
+    neighbours = aliveAroundCells(mat, size, x, y)
+    print("neighbours", neighbours)
+    if (neighbours == 2 or neighbours == 3 and mat[x, y] == 1):
+        return 1
+    elif (neighbours == 3 and mat[x, y] == 0):
+        return 1
+    return 0
+
 class Board:                                                                    
     def __init__(self, size, init=0):                                                   
         if (size <= 0 or init < 0):
