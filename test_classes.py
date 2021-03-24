@@ -21,19 +21,19 @@ class TestBoardInitialization:
 
     def testNegativeInit(self):
         with pytest.raises(ValueError):
-            Board(1, init=-5)
+            Board(1, cells=[(-1, 2)])
 
     def testWithInit(self):
-        M = Board(3, init=5)
+        M = Board(3, cells=[(0, 0), (0, 1), (1, 1), (2, 2), (1, 0)])
         assert (M.size == 3 and countOnes(M.matrix, 3) == 5)
 
     def testTooManyOne(self):
-        M = Board(1, init=5)
+        M = Board(1, cells=[(0,0)])
         assert (M.size == 1 and countOnes(M.matrix, 1) == 1)
 
 class TestAliveArroundCells:
     def testNegativeCoordinates(self):
-        M = Board(1, init=5)
+        M = Board(1, cells=[])
         with pytest.raises(ValueError):
             aliveAroundCells(M.matrix, M.size, -1, 2)
 
