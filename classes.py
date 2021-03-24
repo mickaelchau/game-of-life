@@ -12,6 +12,22 @@ def initRandomCells(n, mat, size):
             i += 1
     return mat
 
+def aliveAroundCells(mat, size, x, y):
+    if (x >= size or x < 0 or y >= size or y < 0):
+        raise ValueError("x and y must be in [0, size]")
+    
+    count = 0;
+    yminus = y-1 if (y-1 >= 0) else y
+    yplus = y+1 if (y+1 < size) else y
+    xminus = x-1 if (x-1 >= 0) else x
+    xplus = x+1 if (x+1 < size) else x 
+    #know limits of the iteration matrix 
+    for i in range(xminus, xplus+1):
+        for j in range(yminus, yplus+1):
+            count += mat[i, j]
+    count -= mat[x, y] #Do not want the middle one
+    return count
+
 class Board:                                                                    
     def __init__(self, size, init=0):                                                   
         if (size <= 0 or init < 0):
@@ -23,19 +39,4 @@ class Board:
                 dtype=int), 
                 size)
             
-    def aliveAroundCells(self, x, y):
-        if (x >= self.size or x < 0 or y >= self.size or y < 0):
-            raise ValueError("x and y must be in [0, size]")
-        
-        count = 0;
-        yminus = y-1 if (y-1 >= 0) else y
-        yplus = y+1 if (y+1 < self.size) else y
-        xminus = x-1 if (x-1 >= 0) else x
-        xplus = x+1 if (x+1 < self.size) else x 
-        #know limits of the iteration matrix 
-        for i in range(xminus, xplus+1):
-            for j in range(yminus, yplus+1):
-                count += self.matrix[i, j]
-        count -= self.matrix[x, y] #Do not want the middle one
-        return count
 

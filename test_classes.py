@@ -35,34 +35,34 @@ class TestBoardAliveArroundCells:
     def testiNegativeCoordinates(self):
         M = Board(1, init=5)
         with pytest.raises(ValueError):
-            M.aliveAroundCells(-1,2)
+            aliveAroundCells(M.matrix, M.size, -1, 2)
 
     def testNoAlive(self):
         M = Board(3)
-        assert(M.aliveAroundCells(1, 1) == 0)
+        assert(aliveAroundCells(M.matrix, M.size, 1, 1) == 0)
     
     def testMiddleAlive(self):
         M = Board(3)
         M.matrix[1, 1] = 1
-        assert(M.aliveAroundCells(1, 1) == 0)
+        assert(aliveAroundCells(M.matrix, M.size, 1, 1) == 0)
 
     def testNormalCase(self):
         M = Board(3)
         M.matrix[1, 2] = 1
         M.matrix[2, 2] = 1
         M.matrix[1, 0] = 1
-        assert(M.aliveAroundCells(1, 1) == 3)
+        assert(aliveAroundCells(M.matrix, M.size, 1, 1) == 3)
 
     def testCornerCase1(self):
         M = Board(3)
         M.matrix[0, 0] = 1
         M.matrix[0, 1] = 1
         M.matrix[0, 2] = 1
-        assert(M.aliveAroundCells(0, 0) == 1)
+        assert(aliveAroundCells(M.matrix, M.size, 0, 0) == 1)
 
     def testCornerCase2(self):
         M = Board(3)
         M.matrix[0, 1] = 1
         M.matrix[1, 1] = 1
         M.matrix[1, 2] = 1
-        assert(M.aliveAroundCells(1, 1) == 2)
+        assert(aliveAroundCells(M.matrix, M.size, 1, 1) == 2)
