@@ -1,3 +1,4 @@
+import sys
 from process import Game, Init
 from classes import * 
 
