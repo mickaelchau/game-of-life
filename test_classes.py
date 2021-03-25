@@ -111,4 +111,50 @@ class TestAliveOrNot:
         M.matrix[0, 1] = 1
         assert(AliveOrNot(M.matrix, M.size, 0, 0) == 0)
 
+class TestBoardPlay:
+    def testBlinker(self):
+        M = Board(3)
+        M.matrix[0, 1] = 1
+        M.matrix[1, 1] = 1
+        M.matrix[2, 1] = 1
+        M.play()
+        assert(M.matrix[1, 0] == 1 and M.matrix[1, 1] == 1 
+            and M.matrix[1, 2] == 1 and countOnes(M.matrix, M.size) == 3)
+
+    def testToad(self):
+        M = Board(4)
+        M.matrix[2, 0] = 1
+        M.matrix[2, 1] = 1
+        M.matrix[2, 2] = 1
+        M.matrix[1, 1] = 1
+        M.matrix[1, 2] = 1
+        M.matrix[1, 3] = 1
+        M.play()
+        assert(M.matrix[2, 0] == 1 and M.matrix[3, 1] == 1 
+            and M.matrix[1, 0] == 1 and M.matrix[0, 2] == 1 
+            and M.matrix[1, 3] == 1 and M.matrix[2, 3] == 1 
+            and countOnes(M.matrix, M.size) == 6)
+
+    def testBlock(self):
+        M = Board(4)
+        M.matrix[1, 1] = 1
+        M.matrix[1, 2] = 1
+        M.matrix[2, 1] = 1
+        M.matrix[2, 2] = 1
+        M.play()
+        assert(M.matrix[1, 1] == 1 and M.matrix[1, 2] == 1
+            and M.matrix[2, 1] == 1 and M.matrix[2, 2] == 1
+            and countOnes(M.matrix, M.size) == 4)
+
+    def testBoat(self):
+        M = Board(5)
+        M.matrix[1, 1] = 1
+        M.matrix[1, 2] = 1
+        M.matrix[2, 1] = 1
+        M.matrix[2, 3] = 1
+        M.matrix[3, 2] = 1
+        M.play()
+        assert(M.matrix[1, 1] == 1 and M.matrix[1, 2] == 1
+            and M.matrix[2, 1] == 1 and M.matrix[2, 3] == 1
+            and M.matrix[3, 2] == 1 and countOnes(M.matrix, M.size) == 5)
 
