@@ -6,8 +6,8 @@ def initCells(cells, mat, size):
     longueur = len(cells)
     for i in cells:
         (x, y) = i
-        if (x < 0 or y < 0 or y > size or x > size):
-            raise ValueError("x and y must be in [0, size-1]")
+        if (x < 0 or y < 0 or y >= size or x >= size):
+            raise ValueError("ERROR: x and y must be in [0, size-1]")
         mat[x, y] = 1
     return mat
 
@@ -15,7 +15,7 @@ def aliveAroundCells(mat, size, x, y):
     #Pre: mat of sizexsize 
     #Post: return nb of alive neighbours cells of (x, y) cell
     if (x >= size or x < 0 or y >= size or y < 0):
-        raise ValueError("x and y must be in [0, size]")
+        raise ValueError("ERROR: x and y must be in [0, size-1]")
     
     count = 0;
     yminus = y-1 if (y-1 >= 0) else y
@@ -42,9 +42,9 @@ def AliveOrNot(mat, size, x, y):
 
 class Board:                                                                    
     def __init__(self, size, cells=[]):            
-        #Post: Init an Empty Board or a Board with init cells
+        #Post: Init a Board with cells of coordinates (x, y) into 'cells'
         if (size <= 0):
-            raise ValueError("size: positive or null\n")
+            raise ValueError("ERROR: size must be positive\n")
         self.size = size   
         self.matrix = initCells(
                 cells, 
@@ -53,6 +53,8 @@ class Board:
                 size)
 
     def play(self):
+        #Pre: A matrix that contains state of the Board at n
+        #Post: A matrix that contains state of the Board at n+1
         new = np.zeros((self.size, self.size), dtype=int)       
         for x in range(self.size):
             for y in range(self.size):
