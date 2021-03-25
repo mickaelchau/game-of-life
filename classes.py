@@ -25,7 +25,8 @@ def aliveAroundCells(mat, size, x, y):
     #know limits of the iteration matrix 
     for i in range(xminus, xplus+1):
         for j in range(yminus, yplus+1):
-            count += mat[i, j]
+            if (mat[i, j] == 1):
+                count += mat[i, j]
     count -= mat[x, y] #Do not want the middle one
     return count
 
@@ -33,7 +34,7 @@ def AliveOrNot(mat, size, x, y):
     #Pre: mat of sizexsize & Use aliveAroundCells
     #Post: Compute if (x, y) cell is alive or dead
     neighbours = aliveAroundCells(mat, size, x, y)
-    if (neighbours == 2 or neighbours == 3 and mat[x, y] == 1):
+    if ((neighbours == 2 or neighbours == 3) and mat[x, y] == 1):
         return 1
     elif (neighbours == 3 and mat[x, y] == 0):
         return 1
@@ -50,16 +51,11 @@ class Board:
                 np.zeros((size, size), 
                 dtype=int), 
                 size)
-"""        
-    def play(self):
-        for x in range(self.size):
-            for y in range(self.size):
-                self.matrix[x, y] = AliveOrNot(self.matrix, self.size, x, y)
 
-    def print(self):
+    def play(self):
+        new = np.zeros((self.size, self.size), dtype=int)       
         for x in range(self.size):
             for y in range(self.size):
-                print("| ", self.matrix[x, y], end=" ")
-            print("|")
-            print()
-"""
+                new[x, y] = AliveOrNot(self.matrix, self.size, x, y)
+        self.matrix = new
+
