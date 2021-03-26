@@ -52,7 +52,8 @@ def Game(board, n, wait=1):
     ax.yaxis.set_minor_locator(MultipleLocator(1))
     ax.grid(which='both', color='#CCCCCC')
 
-    text = ax.text(0, 0, "")
+    #Dynamic text init
+    text = ax.text(board.size+1, board.size+1, "")
     text.set_color("red")
     text.set_zorder(1.)
 
