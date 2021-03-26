@@ -53,9 +53,9 @@ def Game(board, n, wait=1):
     ax.grid(which='both', color='#CCCCCC')
 
     #Dynamic text init
-    text = ax.text(board.size+1, board.size+1, "")
-    text.set_color("red")
-    text.set_zorder(1.)
+    text = ax.text(board.size+1, board.size+1, "", size="x-large", zorder=1.)
+    #text.set_color("red")
+    #text.set_zorder(1.)
 
     v = board.matrix
     maxIter = str(n)
