@@ -8,7 +8,7 @@ def initCells(cells, mat, size):
         (x, y) = i
         if (x < 0 or y < 0 or y >= size or x >= size):
             raise ValueError("ERROR: x and y must be in [0, size-1]")
-        mat[x, y] = 1
+        mat[size-1-y, x] = 1
     return mat
 
 def aliveAroundCells(mat, size, x, y):
@@ -55,9 +55,10 @@ class Board:
     def play(self):
         #Pre: A matrix that contains state of the Board at n
         #Post: A matrix that contains state of the Board at n+1
-        new = np.zeros((self.size, self.size), dtype=int)       
+        new = np.zeros((self.size, self.size), dtype=int)      
         for x in range(self.size):
             for y in range(self.size):
-                new[x, y] = AliveOrNot(self.matrix, self.size, x, y)
+                new[x, y] = AliveOrNot(self.matrix, self.size, x, y) 
         self.matrix = new
+        
 
