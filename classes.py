@@ -61,4 +61,3 @@ class Board:
                 new[x, y] = AliveOrNot(self.matrix, self.size, x, y) 
         self.matrix = new
         
-

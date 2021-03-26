@@ -20,7 +20,7 @@ def Init():
     pos = []
     print("Enter the coordinates (x, y) of each alive cels: ")
     print("Coordinates must be between 0 and", aliveCels-1)
-    print("\nx\n^\n|\n|\n|\n|=====> y")
+    print("\ny\n^\n|\n|\n|\n|=====> x")
     for i in range(aliveCels):
         print("cel", i+1,":")
         x = int(input("X: "))
@@ -31,15 +31,20 @@ def Init():
 
 def Game(board, n, wait=1):                                          
     cmap = ListedColormap(["white", "black"]) #Colors chosen for the Game       
-    fig, ax = plt.subplots()                                                    
+    fig, ax = plt.subplots()
     fig.canvas.set_window_title("Game Of Life by Mickael")                      
+    text = ax.text(0, 0, "")
     ax.axis('off')                                                             
-    v = board.matrix                                                            
+    v = board.matrix
+    maxIter = str(n)
     for i in range(n):                                                          
+        infoInter = "Iterations: " + str(i+1) + "\nFinal iteration: " + maxIter
+        text.set_text(infoInter)
         ax.matshow(v, cmap=cmap)                                                
         plt.pause(wait)                                                         
-        board.play()                                                            
-        v = board.matrix                                                        
-    plt.show() #Block plot at the end                                           
+        board.play()
+        fig.canvas.draw()
+        v = board.matrix
+    plt.show(block=True)
     print("Game has ended.")  
 

@@ -1,3 +1,5 @@
+# I did not know how to to refresh matlab figure so I did a POC
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
