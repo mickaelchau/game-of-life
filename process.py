@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt                                                 
+import numpy as np
 from matplotlib.colors import ListedColormap, BoundaryNorm    
+from matplotlib.ticker import LinearLocator, MultipleLocator
+
 def Input():
     size = int(input("Enter size of Board: "))
     if (size <= 0):
@@ -37,7 +40,17 @@ def Game(board, n, wait=1):
 
     fig, ax = plt.subplots()
     fig.canvas.set_window_title("Game Of Life by Mickael")                      
-    ax.axis('off')                                                             
+
+    #grid sugar syntax
+    ax.set_xlim(0, board.size)
+    ax.set_ylim(0, board.size)
+    # Proportion of major sticks => here all 10
+    ax.xaxis.set_major_locator(MultipleLocator(10))
+    ax.yaxis.set_major_locator(MultipleLocator(10))
+    # Proportion of minors sticks => here all 1
+    ax.xaxis.set_minor_locator(MultipleLocator(1))
+    ax.yaxis.set_minor_locator(MultipleLocator(1))
+    ax.grid(which='both', color='#CCCCCC')
 
     text = ax.text(0, 0, "")
     text.set_color("red")
@@ -51,7 +64,9 @@ def Game(board, n, wait=1):
         text.set_text(infoInter)
 
         #Refresh figure and axes 
-        ax.matshow(v, cmap=cmap, norm=norm)                                                
+        ax.matshow(v, cmap=cmap, norm=norm, 
+            extent=[0, board.size, 0, board.size])                          
+        ax.xaxis.set_ticks_position("bottom") #Xaxis starts at the left lower
         plt.pause(wait)                                                         
         board.play()
         fig.canvas.draw()
