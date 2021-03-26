@@ -1,13 +1,22 @@
 import matplotlib.pyplot as plt                                                 
 from matplotlib.colors import ListedColormap    
+def Input():
+    size = int(input("Enter size of Board: "))
+    if (size <= 0):
+        raise ValueError("Size should be positive")
+    steps = int(input("Enter number of steps of the Game: "))
+    if (steps <= 0):
+        raise ValueError("Steps should be positive")
+    duration = float(input("Enter duration between each steps: "))
+    if (duration < 0.):
+        raise ValueError("Steps should be positive")
+    aliveCels = int(input("Enter number of alive cels: "))
+    if (aliveCels < 0):
+        raise ValueError("Alive Cels should be positive or null")
+    return size, steps, duration, aliveCels
 
 def Init():
-    size = int(input("Enter size of Board: "))
-    steps = int(input("Enter number of steps of the Game: "))
-    duration = float(input("Enter duration between each steps: "))
-    aliveCels = int(input("Enter number of alive cels: "))
-    if (size < 0 or steps < 0 or duration < 0 or aliveCels < 0):
-        raise ValueError("variables should be positive")
+    (size, steps, duration, aliveCels) = Input()
     pos = []
     print("Enter the coordinates (x, y) of each alive cels: ")
     print("Coordinates must be between 0 and", aliveCels-1)
